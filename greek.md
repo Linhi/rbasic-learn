@@ -121,7 +121,7 @@ text(x,max(p)-3,"At the money",cex=0.75)
 text(max(st)-2,max(p),paste0("Sigma =",round(100*sigma*sqrt(365),2),"% per year"),cex=0.75)
 text(max(st)-2,max(p)-0.5,paste0("Rf =",round(100*r_f*365,2),"% per year"),cex=0.75)
 text(max(st)-2,max(p)-1,paste0("Strike =",x),cex=0.75)
-text(min(st)-2,max(c)-1.5,paste0("Time to maturity =",t, "days"),cex=0.75)
+text(min(st)-2,max(c)-1.5,paste0("Time to maturity =",t, "days"),cex=0.7)
 
 finpayoff <- ifelse(st-x<=0,-st+x,0)
 for (i in 1:t){
