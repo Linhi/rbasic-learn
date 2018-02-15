@@ -1,0 +1,36 @@
+############# Stock parameters    
+x=150
+sigma=0.3/sqrt(365)
+st=c(seq(140,149,1),149.99,150.01,seq(151,160,1))
+r_f=0.1/365
+t=4 #in weeks
+
+##################
+
+i=0
+  d2=(log(st/x)+(r_f-sigma^2/2)*(t-i))/(sigma*sqrt(t-i))
+  d1=d2+(sigma*sqrt(t-i))
+  c=st*pnorm(d1)-x*exp(-r_f*(t-i))*pnorm(d2)
+  
+plot(st, c, type="l", lty=1, xlab="Stock Price at time (t)", ylab="Call Value", main="Evolution of Call Value",ylim=c(0,max(c)),lwd=2)
+abline(v=x,lty=2)  
+text(max(st)-2,max(c),"Value at t=0",cex=0.7)
+text(x+5,max(c),"In the money region",cex=0.75)
+text(x-5,max(c),"Out of money region",cex=0.75)
+text(x,max(c)-3,"At the money",cex=0.75)
+text(min(st)+2,max(c),paste0("Sigma =",round(100*sigma*sqrt(365),2),"% per year"),cex=0.75)
+text(min(st)+2,max(c)-0.5,paste0("Rf =",round(100*r_f*365,2),"% per quarter"),cex=0.75)
+text(min(st)+2,max(c)-1,paste0("Strike =",x),cex=0.75)
+text(min(st)+2,max(c)-1.5,paste0("Time to maturity =",t, "weeks"),cex=0.75)
+
+finpayoff <- ifelse(st-x>=0,st-x,0)
+for (i in 1:t){
+  if(i==t){Sys.sleep(1.8)
+    lines(st,finpayoff,col=paste0("grey",80-i*5),lwd=2)
+    text(max(st)-2,max(finpayoff)-2,"Value at t=T",cex=0.7)
+    }else{
+    Sys.sleep(1)
+  d2=(log(st/x)+(r_f-sigma^2/2)*(t-i))/(sigma*sqrt(t-i))
+  
+lines(st,c,col=paste0("grey",80-i*5))}
+}
